@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Running Studios — 15% off your first order</title>
+<meta name="description" content="Join the list and get 15% off your first order.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  // 1) Paste your Brevo form URL here (Brevo → Contacts → Forms → your form → Share → "HTML code" → the form's action="..." URL)
+  //    Leave empty to test the page: it will just show the success message.
+  const BREVO_FORM_URL = "https://a9319ac0.sibforms.com/serve/MUIFAG2bFUkBEN8fwZSVZsdxAjv_KoSxBYDah6r2PE3oiBxCBBwk1iSScKGSS3d8-TE2hVZnPM8TYS4Jd1zKPHRKh7m3de_i9bjHMs8IasK6XwzhRechxldr33OnohHGk4E7Ar2ZepaV47Bm3eieSAtSsJByZNuc7qOzcI7tkK-sxyF_ubHwphe6gz6f0uBS7TtdAdaIVMtaGrOMog==";
+</script>
+
+<style>
+  :root {
+    --ink: #f4f1ec;
+    --ink-soft: rgba(244,241,236,.72);
+    --ink-faint: rgba(244,241,236,.38);
+    --line: rgba(244,241,236,.32);
+    --bg: #0d0d0d;
+    --error: #ffb4a8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* Background video */
+  .bg { position: fixed; inset: 0; z-index: 0; }
+  .bg video, .bg img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .bg::after {
+    content: ""; position: absolute; inset: 0; opacity: var(--shade, 0); transition: opacity .2s linear;
+    background:
+      radial-gradient(ellipse at center, rgba(0,0,0,.55) 0%, rgba(0,0,0,.25) 70%),
+      linear-gradient(0deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,0) 30%);
+  }
+
+  /* Layout */
+  .page {
+    position: relative; z-index: 1;
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    padding: clamp(20px, 4vw, 48px);
+  }
+  header { display: flex; justify-content: space-between; align-items: center; }
+  .brand {
+    font-family: "Inter", sans-serif; font-weight: 500;
+    font-size: 12px; letter-spacing: .32em; text-transform: uppercase;
+    color: var(--ink); text-decoration: none;
+  }
+  .tag { font-size: 11px; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-faint); }
+
+  main { display: flex; align-items: center; justify-content: center; text-align: center; }
+  .panel { width: 100%; max-width: 460px; padding: 32px 0; }
+  .hero { position: relative; z-index: 1; height: 100svh; display: flex; align-items: center; justify-content: center; }
+  .hero img { width: 100%; height: auto; display: block; }
+  .scroll { position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; font-size: 11px; letter-spacing: .26em; text-transform: uppercase; white-space: nowrap; }
+  .scroll svg { width: 18px; height: 18px; animation: nudge 2s ease-in-out infinite; }
+  @keyframes nudge { 50% { transform: translateY(6px); } }
+  html { scroll-behavior: smooth; }
+  .eyebrow { justify-content: center; }
+  .eyebrow::after { content: ""; width: 32px; height: 1px; background: var(--ink-soft); }
+  .consent { text-align: left; }
+  .done p { margin-left: auto; margin-right: auto; }
+
+  .eyebrow {
+    font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+    color: var(--ink-soft); margin-bottom: 28px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .eyebrow::before { content: ""; width: 32px; height: 1px; background: var(--ink-soft); }
+
+  h1 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(56px, 9vw, 112px);
+    line-height: .88;
+    letter-spacing: -.02em;
+  }
+  h1 em { font-style: italic; }
+  .sub {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(22px, 2.4vw, 28px);
+    line-height: 1.25;
+    color: var(--ink-soft);
+    margin: 22px 0 40px;
+    max-width: 22ch;
+  }
+
+  /* Form */
+  form { display: grid; gap: 22px; }
+  .field { position: relative; border-bottom: 1px solid var(--line); display: flex; align-items: center; transition: border-color .3s; }
+  .field:focus-within { border-color: var(--ink); }
+  .field input {
+    flex: 1; min-width: 0;
+    background: transparent; border: 0; outline: 0;
+    color: var(--ink); font: 400 16px/1 "Inter", sans-serif;
+    padding: 16px 0;
+  }
+  .field input::placeholder { color: var(--ink-faint); }
+  .field button {
+    background: none; border: 0; cursor: pointer;
+    color: var(--ink); font: 500 11px/1 "Inter", sans-serif;
+    letter-spacing: .26em; text-transform: uppercase;
+    padding: 16px 0 16px 16px; display: flex; align-items: center; gap: 10px;
+    transition: gap .3s;
+  }
+  .field button:hover { gap: 16px; }
+  .field button:disabled { opacity: .5; cursor: wait; }
+  .field button svg { width: 18px; height: 18px; }
+
+  .consent { display: flex; gap: 12px; align-items: flex-start; font-size: 12px; line-height: 1.55; color: var(--ink-soft); cursor: pointer; }
+  .consent input { appearance: none; flex: none; width: 15px; height: 15px; margin-top: 2px; border: 1px solid var(--ink-soft); border-radius: 0; cursor: pointer; display: grid; place-items: center; }
+  .consent input:checked { background: var(--ink); border-color: var(--ink); }
+  .consent input:checked::after { content: ""; width: 7px; height: 4px; border: solid var(--bg); border-width: 0 0 1.5px 1.5px; transform: rotate(-45deg) translate(1px,-1px); }
+  .consent input:focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
+  .consent a, footer a { color: var(--ink); text-underline-offset: 3px; }
+
+  .msg { font-size: 13px; min-height: 1em; color: var(--error); }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  /* Success state */
+  .done { display: none; }
+  .panel.is-done form, .panel.is-done .sub { display: none; }
+  .done .eyebrow { font-weight: 400; margin: 36px 0 0; }
+  .panel.is-done .done { display: block; animation: rise .8s cubic-bezier(.2,.7,.2,1) both; }
+  .done p { font-family: "Cormorant Garamond", Georgia, serif; font-size: 24px; line-height: 1.35; color: var(--ink-soft); margin-top: 22px; max-width: 24ch; }
+  .done small { display: block; margin-top: 28px; font-size: 12px; color: var(--ink-faint); line-height: 1.6; }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+  /* Entrance */
+  .panel > * { animation: rise 1.1s cubic-bezier(.2,.7,.2,1) both; }
+  .panel > *:nth-child(2) { animation-delay: .12s; }
+  .panel > *:nth-child(3) { animation-delay: .24s; }
+  .panel > *:nth-child(4) { animation-delay: .36s; }
+  
+  footer { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 11px; letter-spacing: .08em; color: var(--ink-faint); }
+  footer nav { display: flex; gap: 20px; }
+  footer a { color: var(--ink-faint); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  .panel .sub { margin-left: auto; margin-right: auto; }
+  @media (max-width: 720px) {
+    .bg::after { background: rgba(0,0,0,.6); }
+    .hero { justify-content: flex-start; overflow: hidden; }
+    .hero img { width: 128%; max-width: none; flex: none; margin-left: -4%; }
+    .panel { padding: 32px 0 40px; }
+    .tag { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bg video { display: none; }
+    .panel > *, .panel.is-done .done { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <video autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg">
+      <source src="hero-540.mp4" type="video/mp4" media="(max-width: 720px)">
+      <source src="hero-1080.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <section class="hero">
+    <img src="logo.png" alt="Code Running Studios — A new era of movement. Coming soon.">
+    <a class="scroll" href="#panel">15% off your first order <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 4v16M6 14l6 6 6-6"/></svg></a>
+  </section>
+
+  <div class="page">
+    <header></header>
+
+    <main>
+      <section class="panel" id="panel">
+        <div class="eyebrow">First order</div>
+        <h1>15% <em>off</em></h1>
+        <p class="sub">Join the list and receive 15% off your first order.</p>
+
+        <form id="signup" method="POST" target="brevo-frame" novalidate>
+          <div class="field">
+            <label for="email" class="hp">Email address</label>
+            <input id="email" name="EMAIL" type="email" autocomplete="email" placeholder="Your email address" required>
+            <button type="submit" id="submit">
+              Join
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 12h16M14 6l6 6-6 6"/></svg>
+            </button>
+          </div>
+
+          <label class="consent">
+            <input type="checkbox" id="consent" name="OPT_IN" value="1" required>
+            <span>I'd like to receive emails about new collections and offers. I can unsubscribe at any time.</span>
+          </label>
+
+          <!-- Brevo hidden fields -->
+          <input class="hp" type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off">
+          <input type="hidden" name="locale" value="en">
+          <input type="hidden" name="html_type" value="simple">
+
+          <p class="msg" id="msg" role="alert"></p>
+        </form>
+
+        <div class="done" role="status">
+          <h2 class="eyebrow">Almost there</h2>
+          <p>Check your inbox and confirm your email. Your 15% code arrives right after.</p>
+          <small>Nothing there? Look in your spam or promotions folder.</small>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© <span id="year"></span> Code Running Studios</span>
+    </footer>
+  </div>
+
+  <iframe name="brevo-frame" title="" style="display:none"></iframe>
+
+<script>
+  // Video stays untouched behind the image; it darkens gently as you scroll to the sign-up.
+  const shade = () => document.documentElement.style.setProperty("--shade", Math.min(1, scrollY / innerHeight).toFixed(3));
+  addEventListener("scroll", shade, { passive: true }); shade();
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  const form = document.getElementById("signup");
+  const email = document.getElementById("email");
+  const consent = document.getElementById("consent");
+  const msg = document.getElementById("msg");
+  const btn = document.getElementById("submit");
+  const panel = document.getElementById("panel");
+
+  if (BREVO_FORM_URL) form.action = BREVO_FORM_URL;
+
+  form.addEventListener("submit", (e) => {
+    msg.textContent = "";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) {
+      e.preventDefault(); msg.textContent = "Please enter a valid email address."; email.focus(); return;
+    }
+    if (!consent.checked) {
+      e.preventDefault(); msg.textContent = "Please tick the box to join the list."; return;
+    }
+    btn.disabled = true;
+    if (!BREVO_FORM_URL) { e.preventDefault(); setTimeout(() => panel.classList.add("is-done"), 500); return; }
+    // Real submit goes to Brevo in the hidden frame; show success once it has been sent.
+    setTimeout(() => panel.classList.add("is-done"), 1200);
+  });
+</script>
+</body>
+</html>
